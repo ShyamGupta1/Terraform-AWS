@@ -6,12 +6,12 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import { 
-  Download, 
-  Settings, 
-  CheckCircle, 
-  Code, 
-  Play, 
+import {
+  Download,
+  Settings,
+  CheckCircle,
+  Code,
+  Play,
   Trash2,
   Cloud,
   Server,
@@ -99,9 +99,9 @@ const Index = () => {
               </div>
             </DialogContent>
           </Dialog>
-          <Button 
-            variant="outline" 
-            size="sm" 
+          <Button
+            variant="outline"
+            size="sm"
             className="h-7 md:h-8 px-2 md:px-3 text-xs md:text-sm"
             onClick={() => {
               const link = document.createElement('a');
@@ -275,7 +275,7 @@ const Index = () => {
                     <p className={`text-base md:text-lg ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
                       Terraform is an <strong>Infrastructure as Code (IaC)</strong> tool that allows you to build, change, and version infrastructure safely and efficiently.
                     </p>
-                    
+
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                       <div className={`p-4 rounded-lg ${isDarkMode ? 'bg-blue-900/20 text-blue-200' : 'bg-blue-50 text-blue-900'}`}>
                         <h3 className="font-semibold mb-2 text-sm md:text-base">Key Benefits:</h3>
@@ -287,7 +287,7 @@ const Index = () => {
                           <li>• Cost-effective resource management</li>
                         </ul>
                       </div>
-                      
+
                       <div className={`p-4 rounded-lg ${isDarkMode ? 'bg-green-900/20 text-green-200' : 'bg-green-50 text-green-900'}`}>
                         <h3 className="font-semibold mb-2 text-sm md:text-base">What You'll Learn:</h3>
                         <ul className="space-y-1 text-xs md:text-sm">
@@ -326,7 +326,7 @@ const Index = () => {
                       </ol>
                     </div>
 
-                    <ImageCard 
+                    <ImageCard
                       src="/images/terraform-download.png"
                       alt="Terraform Download Page"
                       title="Terraform Download from Official Website"
@@ -335,7 +335,7 @@ const Index = () => {
                     <div className={`border-l-4 border-yellow-500 p-4 ${isDarkMode ? 'bg-yellow-900/20 text-yellow-200' : 'bg-yellow-50 text-yellow-900'}`}>
                       <h3 className="font-semibold mb-2 text-sm md:text-base">💡 Pro Tip:</h3>
                       <p className="text-xs md:text-sm">
-                        Create a dedicated folder like <code className="bg-gray-200 px-2 py-1 rounded text-xs">C:\terraform</code> to keep your installation organized. 
+                        Create a dedicated folder like <code className="bg-gray-200 px-2 py-1 rounded text-xs">C:\terraform</code> to keep your installation organized.
                         This makes it easier to manage and reference later.
                       </p>
                     </div>
@@ -361,13 +361,13 @@ const Index = () => {
                       </ol>
                     </div>
 
-                    <ImageCard 
+                    <ImageCard
                       src="/images/environment-variables.png"
                       alt="Environment Variables Configuration"
                       title="Setting up PATH Environment Variable"
                     />
 
-                    <ImageCard 
+                    <ImageCard
                       src="/images/system-properties.png"
                       alt="System Properties Dialog"
                       title="System Properties - Environment Variables Access"
@@ -376,7 +376,7 @@ const Index = () => {
                     <div className={`p-4 rounded-lg ${isDarkMode ? 'bg-blue-900/20 text-blue-200' : 'bg-blue-50 text-blue-900'}`}>
                       <h3 className="font-semibold mb-2 text-sm md:text-base">Why is this important?</h3>
                       <p className={`text-xs md:text-sm ${isDarkMode ? 'text-gray-300' : 'text-blue-800'}`}>
-                        Adding Terraform to your PATH allows you to run <code className="bg-gray-200 px-2 py-1 rounded text-xs">terraform</code> commands 
+                        Adding Terraform to your PATH allows you to run <code className="bg-gray-200 px-2 py-1 rounded text-xs">terraform</code> commands
                         from any directory in your command prompt, making it much more convenient to use.
                       </p>
                     </div>
@@ -404,10 +404,10 @@ const Index = () => {
                     </div>
 
                     <CodeBlock title="Verify Terraform Installation">
-terraform --version
+                      terraform --version
                     </CodeBlock>
 
-                    <ImageCard 
+                    <ImageCard
                       src="/images/terraform-version.png"
                       alt="Terraform Version Command Output"
                       title="Terraform Version Verification in Command Prompt"
@@ -419,7 +419,7 @@ terraform --version
                         You should see something like:
                       </p>
                       <div className="bg-gray-900 text-green-400 p-3 rounded font-mono text-xs md:text-sm">
-                        Terraform v1.6.4<br/>
+                        Terraform v1.6.4<br />
                         on windows_amd64
                       </div>
                     </div>
@@ -448,7 +448,7 @@ terraform --version
                     </div>
 
                     <CodeBlock title="main.tf - AWS Provider Configuration">
-{`provider "aws" {
+                      {`provider "aws" {
   region     = "us-east-1"
   access_key = "YOUR_ACCESS_KEY_HERE"
   secret_key = "YOUR_SECRET_KEY_HERE"
@@ -464,13 +464,13 @@ resource "aws_instance" "first-server" {
 }`}
                     </CodeBlock>
 
-                    <ImageCard 
+                    <ImageCard
                       src="/images/terraform-config.png"
                       alt="Terraform Configuration File"
                       title="main.tf Configuration in VS Code"
                     />
 
-                    <ImageCard 
+                    <ImageCard
                       src="/images/terraform-file-structure.png"
                       alt="Terraform File Structure"
                       title="Terraform Project File Structure"
@@ -479,7 +479,7 @@ resource "aws_instance" "first-server" {
                     <div className={`border-l-4 border-red-500 p-4 ${isDarkMode ? 'bg-red-900/20 text-red-200' : 'bg-red-50 text-red-900'}`}>
                       <h3 className="font-semibold mb-2 text-sm md:text-base">🔐 Security Warning:</h3>
                       <p className="text-xs md:text-sm">
-                        <strong>Never commit your actual AWS credentials to version control!</strong> 
+                        <strong>Never commit your actual AWS credentials to version control!</strong>
                         Replace "YOUR_ACCESS_KEY_HERE" and "YOUR_SECRET_KEY_HERE" with your actual AWS credentials.
                       </p>
                     </div>
@@ -519,7 +519,7 @@ resource "aws_instance" "first-server" {
                         <div className={`p-3 rounded border ${isDarkMode ? 'bg-gray-700 border-gray-600' : 'bg-white border-gray-200'}`}>
                           <h4 className={`font-medium mb-1 text-sm md:text-base ${isDarkMode ? 'text-blue-400' : 'text-blue-900'}`}>Provider Block:</h4>
                           <CodeBlock>
-{`provider "aws" {
+                            {`provider "aws" {
   region     = "us-east-1"
   access_key = "YOUR_ACCESS_KEY"
   secret_key = "YOUR_SECRET_KEY"
@@ -533,7 +533,7 @@ resource "aws_instance" "first-server" {
                         <div className={`p-3 rounded border ${isDarkMode ? 'bg-gray-700 border-gray-600' : 'bg-white border-gray-200'}`}>
                           <h4 className={`font-medium mb-1 text-sm md:text-base ${isDarkMode ? 'text-blue-400' : 'text-blue-900'}`}>Resource Block:</h4>
                           <CodeBlock>
-{`resource "aws_instance" "first-server" {
+                            {`resource "aws_instance" "first-server" {
   ami           = "ami-05ffe3c48a9991133"
   instance_type = "t2.micro"
   
@@ -563,7 +563,7 @@ resource "aws_instance" "first-server" {
                       <div className={`p-4 rounded-lg ${isDarkMode ? 'bg-yellow-900/20 text-yellow-200' : 'bg-yellow-50 text-yellow-900'}`}>
                         <h3 className="font-semibold mb-2 text-sm md:text-base">AMI Explained:</h3>
                         <p className="text-xs md:text-sm">
-                          <code className="bg-gray-200 px-2 py-1 rounded text-xs">ami-05ffe3c48a9991133</code> 
+                          <code className="bg-gray-200 px-2 py-1 rounded text-xs">ami-05ffe3c48a9991133</code>
                           is an Amazon Linux 2 image. AMI IDs are region-specific and may change over time.
                         </p>
                       </div>
@@ -591,7 +591,7 @@ resource "aws_instance" "first-server" {
                           Downloads the AWS provider and initializes the working directory.
                         </p>
                         <div className="mt-4">
-                          <ImageCard 
+                          <ImageCard
                             src="/images/terraform-init.png"
                             alt="Terraform Init Command Output"
                             title="terraform init - Successful Initialization"
@@ -606,7 +606,7 @@ resource "aws_instance" "first-server" {
                           Checks if your configuration is syntactically valid.
                         </p>
                         <div className="mt-4">
-                          <ImageCard 
+                          <ImageCard
                             src="/images/terraform-validate.png"
                             alt="Terraform Validate Command Output"
                             title="terraform validate - Configuration Valid"
@@ -621,12 +621,12 @@ resource "aws_instance" "first-server" {
                           Shows what changes Terraform will make without actually applying them.
                         </p>
                         <div className="mt-4 space-y-4">
-                          <ImageCard 
+                          <ImageCard
                             src="/images/terraform-plan-part1.png"
                             alt="Terraform Plan Command Output - Part 1"
                             title="terraform plan - Execution Plan (Part 1)"
                           />
-                          <ImageCard 
+                          <ImageCard
                             src="/images/terraform-plan-part2.png"
                             alt="Terraform Plan Command Output - Part 2"
                             title="terraform plan - Execution Plan (Part 2)"
@@ -641,17 +641,17 @@ resource "aws_instance" "first-server" {
                           Creates the actual AWS resources. Type "yes" when prompted.
                         </p>
                         <div className="mt-4 space-y-4">
-                          <ImageCard 
+                          <ImageCard
                             src="/images/terraform-apply.png"
                             alt="Terraform Apply Command Output"
                             title="terraform apply - Resource Creation Complete"
                           />
-                          <ImageCard 
+                          <ImageCard
                             src="/images/aws-ec2-instance.png"
                             alt="AWS EC2 Instance Created"
                             title="AWS Console - EC2 Instance Successfully Created"
                           />
-                          <ImageCard 
+                          <ImageCard
                             src="/images/aws-ec2-instance-details.png"
                             alt="AWS EC2 Instance Details"
                             title="EC2 Instance Details in AWS Console"
@@ -663,7 +663,7 @@ resource "aws_instance" "first-server" {
                     <div className={`p-4 rounded-lg ${isDarkMode ? 'bg-green-900/20 text-green-200' : 'bg-green-50 text-green-900'}`}>
                       <h3 className="font-semibold mb-2 text-sm md:text-base">✅ Success!</h3>
                       <p className="text-xs md:text-sm">
-                        After running <code className="bg-gray-200 px-2 py-1 rounded text-xs">terraform apply</code>, 
+                        After running <code className="bg-gray-200 px-2 py-1 rounded text-xs">terraform apply</code>,
                         you can see the newly created EC2 instance in your AWS Console as shown in the screenshots above!
                       </p>
                     </div>
@@ -689,12 +689,12 @@ resource "aws_instance" "first-server" {
                         Removes all resources created by Terraform. Type "yes" when prompted.
                       </p>
                       <div className="mt-4 space-y-4">
-                        <ImageCard 
+                        <ImageCard
                           src="/images/terraform-destroy-part1.png"
                           alt="Terraform Destroy Command Output - Part 1"
                           title="terraform destroy - Destruction Plan"
                         />
-                        <ImageCard 
+                        <ImageCard
                           src="/images/terraform-destroy-part2.png"
                           alt="Terraform Destroy Command Output - Part 2"
                           title="terraform destroy - Resources Destroyed Successfully"
@@ -716,7 +716,7 @@ resource "aws_instance" "first-server" {
                     <div className={`p-4 rounded-lg ${isDarkMode ? 'bg-blue-900/20 text-blue-200' : 'bg-blue-50 text-blue-900'}`}>
                       <h3 className="font-semibold mb-2 text-sm md:text-base">🎉 Congratulations!</h3>
                       <p className={`text-xs md:text-sm ${isDarkMode ? 'text-gray-300' : 'text-blue-800'}`}>
-                        You've successfully completed the Terraform AWS EC2 tutorial! 
+                        You've successfully completed the Terraform AWS EC2 tutorial!
                         All screenshots above demonstrate the successful execution of all Terraform commands and the complete lifecycle of AWS resource management.
                       </p>
                     </div>
@@ -736,7 +736,7 @@ resource "aws_instance" "first-server" {
                     <p className={`text-base md:text-lg ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
                       In this task, we'll launch a <strong>secure Ubuntu EC2 instance</strong> with SSH and HTTPS access using the default VPC and latest official Ubuntu AMI.
                     </p>
-                    
+
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                       <div className={`p-4 rounded-lg ${isDarkMode ? 'bg-purple-900/20 text-purple-200' : 'bg-purple-50 text-purple-900'}`}>
                         <h3 className="font-semibold mb-2 text-sm md:text-base">Key Features:</h3>
@@ -749,7 +749,7 @@ resource "aws_instance" "first-server" {
                           <li>• Public IP assignment</li>
                         </ul>
                       </div>
-                      
+
                       <div className={`p-4 rounded-lg ${isDarkMode ? 'bg-orange-900/20 text-orange-200' : 'bg-orange-50 text-orange-900'}`}>
                         <h3 className="font-semibold mb-2 text-sm md:text-base">Security Components:</h3>
                         <ul className="space-y-1 text-xs md:text-sm">
@@ -788,7 +788,7 @@ resource "aws_instance" "first-server" {
                     </div>
 
                     <CodeBlock title="main.tf - Secure Ubuntu EC2 Configuration">
-{`provider "aws" {
+                      {`provider "aws" {
   region = "us-east-1"
   secret_key = ""
   access_key = ""
@@ -931,7 +931,7 @@ variable "key_name" {
                           Downloads the AWS provider and initializes the working directory.
                         </p>
                         <div className="mt-4">
-                          <ImageCard 
+                          <ImageCard
                             src="/images/terraform-init-task2.png"
                             alt="Terraform Init Command for Task 2"
                             title="terraform init - Task 2 Initialization"
@@ -946,7 +946,7 @@ variable "key_name" {
                           Checks if your configuration is syntactically valid.
                         </p>
                         <div className="mt-4">
-                          <ImageCard 
+                          <ImageCard
                             src="/images/terraform-validate-task2.png"
                             alt="Terraform Validate Command for Task 2"
                             title="terraform validate - Task 2 Configuration Valid"
@@ -961,12 +961,12 @@ variable "key_name" {
                           Shows what changes Terraform will make without actually applying them.
                         </p>
                         <div className="mt-4 space-y-4">
-                          <ImageCard 
+                          <ImageCard
                             src="/images/terraform-plan-task2-part1.png"
                             alt="Terraform Plan Command for Task 2 - Part 1"
                             title="terraform plan - Task 2 Execution Plan (Part 1)"
                           />
-                          <ImageCard 
+                          <ImageCard
                             src="/images/terraform-plan-task2-part2.png"
                             alt="Terraform Plan Command for Task 2 - Part 2"
                             title="terraform plan - Task 2 Execution Plan (Part 2)"
@@ -981,7 +981,7 @@ variable "key_name" {
                           Creates the actual AWS resources. Type "yes" when prompted.
                         </p>
                         <div className="mt-4">
-                          <ImageCard 
+                          <ImageCard
                             src="/images/terraform-apply-task2.png"
                             alt="Terraform Apply Command for Task 2"
                             title="terraform apply - Task 2 Resource Creation"
@@ -1006,22 +1006,16 @@ variable "key_name" {
                     </div>
 
                     <div className="space-y-4">
-                      <ImageCard 
+                      <ImageCard
                         src="/images/aws-ec2-instances-task2.png"
                         alt="AWS EC2 Instances List - Task 2"
                         title="AWS Console - EC2 Instances Dashboard"
                       />
-                      
-                      <ImageCard 
+
+                      <ImageCard
                         src="/images/aws-ec2-instance-details-task2.png"
                         alt="EC2 Instance Details - Task 2"
                         title="EC2 Instance Summary - Security Configuration"
-                      />
-
-                      <ImageCard 
-                        src="/images/terraform-apply-success-task2.png"
-                        alt="Terraform Apply Success - Task 2"
-                        title="Terraform Apply Success - All Resources Created"
                       />
                     </div>
 
@@ -1058,12 +1052,12 @@ variable "key_name" {
                         Removes all resources created by Terraform. Type "yes" when prompted.
                       </p>
                       <div className="mt-4 space-y-4">
-                        <ImageCard 
+                        <ImageCard
                           src="/images/terraform-destroy-task2-part1.png"
                           alt="Terraform Destroy Command - Task 2 Plan"
                           title="terraform destroy - Task 2 Destruction Plan"
                         />
-                        <ImageCard 
+                        <ImageCard
                           src="/images/terraform-destroy-task2-part2.png"
                           alt="Terraform Destroy Complete - Task 2"
                           title="terraform destroy - Task 2 Resources Destroyed Successfully"
