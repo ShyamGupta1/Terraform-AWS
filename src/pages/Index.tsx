@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -59,7 +58,23 @@ const Index = () => {
     { id: "task2-cleanup", title: "Cleanup Resources", icon: Trash2 }
   ];
 
-  const currentSteps = activeTask === "task1" ? task1Steps : task2Steps;
+  const task3Steps = [
+    { id: "task3-overview", title: "Task 3 Overview", icon: Database },
+    { id: "task3-code", title: "Complete Infra Code", icon: Code },
+    { id: "task3-commands", title: "Execute Commands", icon: Play },
+    { id: "task3-results", title: "Results & Verification", icon: CheckCircle },
+    { id: "task3-cleanup", title: "Cleanup Resources", icon: Trash2 }
+  ];
+
+  const task4Steps = [
+    { id: "task4-overview", title: "Task 4 Overview", icon: Cloud },
+    { id: "task4-code", title: "S3 Website Infra Code", icon: Code },
+    { id: "task4-commands", title: "Execute Commands", icon: Play },
+    { id: "task4-verification", title: "Verification Steps", icon: CheckCircle },
+    { id: "task4-cleanup", title: "Cleanup Resources", icon: Trash2 }
+  ];
+
+  const currentSteps = activeTask === "task1" ? task1Steps : activeTask === "task2" ? task2Steps : activeTask === "task3" ? task3Steps : task4Steps;
 
   const StepCard = ({ children, title, icon: Icon }) => (
     <Card className={`mb-4 md:mb-6 border-l-4 border-l-blue-500 shadow-lg ${isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white'}`}>
@@ -186,6 +201,30 @@ const Index = () => {
             >
               <Shield className="h-4 w-4" />
               <span>Task 2: Secure Ubuntu EC2</span>
+            </Button>
+            <Button
+              variant={activeTask === "task3" ? "default" : "outline"}
+              onClick={() => {
+                setActiveTask("task3");
+                setActiveStep("task3-overview");
+                setIsMobileMenuOpen(false);
+              }}
+              className="flex items-center gap-2 text-sm md:text-base"
+            >
+              <Database className="h-4 w-4" />
+              <span>Task 3: Complete Infra</span>
+            </Button>
+            <Button
+              variant={activeTask === "task4" ? "default" : "outline"}
+              onClick={() => {
+                setActiveTask("task4");
+                setActiveStep("task4-overview");
+                setIsMobileMenuOpen(false);
+              }}
+              className="flex items-center gap-2 text-sm md:text-base"
+            >
+              <Cloud className="h-4 w-4" />
+              <span>Task 4: S3 Static Website Hosting</span>
             </Button>
           </div>
         </div>
@@ -1077,6 +1116,828 @@ variable "key_name" {
                         <li>• ✅ Complete infrastructure lifecycle management demonstrated</li>
                       </ul>
                     </div>
+                  </div>
+                </StepCard>
+              </TabsContent>
+            </>
+          )}
+
+          {/* Task 3 Content */}
+          {activeTask === "task3" && (
+            <>
+              {/* Task 3 Overview */}
+              <TabsContent value="task3-overview">
+                <StepCard title="Task 3: Complete AWS Infrastructure Setup" icon={Database}>
+                  <div className="space-y-4">
+                    <p className={`text-base md:text-lg ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>In this task, you'll provision a full AWS infrastructure using Terraform, including VPC, EC2, Lambda, S3, EBS, RDS, Athena, CloudWatch, CloudTrail, and CloudFormation resources. Each step is explained for beginners, with screenshots and code examples.</p>
+                    <div className={`p-4 rounded-lg ${isDarkMode ? 'bg-purple-900/20 text-purple-200' : 'bg-purple-50 text-purple-900'}`}>
+                      <h3 className="font-semibold mb-2 text-sm md:text-base">Key AWS Services Covered:</h3>
+                      <ul className="space-y-1 text-xs md:text-sm">
+                        <li>• Custom VPC with public/private subnets</li>
+                        <li>• EC2 instance with EBS volume</li>
+                        <li>• S3 buckets (private, CloudTrail logs)</li>
+                        <li>• Lambda function (Python)</li>
+                        <li>• RDS MySQL database</li>
+                        <li>• Athena database/table</li>
+                        <li>• CloudWatch alarm</li>
+                        <li>• CloudTrail logging</li>
+                        <li>• CloudFormation stack</li>
+                      </ul>
+                    </div>
+                  </div>
+                </StepCard>
+              </TabsContent>
+
+              {/* Task 3 Code */}
+              <TabsContent value="task3-code">
+                <StepCard title="Complete Terraform Code for Task 3" icon={Code}>
+                  <div className="space-y-6">
+                    <div className={`p-4 rounded-lg ${isDarkMode ? 'bg-green-900/20 text-green-200' : 'bg-green-50 text-green-900'}`}>
+                      <h3 className="font-semibold mb-2 text-sm md:text-base">Complete main.tf File</h3>
+                      <p className="text-xs md:text-sm">This file contains all the AWS resources for Task 3. Copy this entire code into your <code className="bg-gray-200 px-2 py-1 rounded text-xs">main.tf</code> file.</p>
+                      {/* @ts-ignore */}
+                      <CodeBlock title="main.tf">{`# Task 3 - Complete AWS Infrastructure Setup
+# This Terraform configuration creates all required AWS resources for the assignment
+
+terraform {
+  required_version = ">= 1.0"
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
+    }
+  }
+}
+
+# Provider Configuration
+provider "aws" {
+  region     = var.aws_region
+  access_key = var.aws_access_key
+  secret_key = var.aws_secret_key
+}
+
+# Variables
+variable "aws_region" {
+  description = "AWS region"
+  type        = string
+  default     = "us-east-1"
+}
+
+variable "aws_access_key" {
+  description = "AWS access key"
+  type        = string
+  sensitive   = true
+}
+
+variable "aws_secret_key" {
+  description = "AWS secret key"
+  type        = string
+  sensitive   = true
+}
+
+variable "key_name" {
+  description = "Name of the AWS key pair for SSH access"
+  type        = string
+  default     = "kp1"
+}
+
+# Generate random password for RDS
+resource "random_password" "db_password" {
+  length  = 16
+  special = true
+}
+
+variable "db_password" {
+  description = "Password for RDS database"
+  type        = string
+  sensitive   = true
+  default     = ""
+}
+
+# Data Sources
+data "aws_availability_zones" "available" {
+  state = "available"
+}
+
+data "aws_ami" "amazon_linux" {
+  most_recent = true
+  owners      = ["amazon"]
+  filter {
+    name   = "name"
+    values = ["amzn2-ami-hvm-*-x86_64-gp2"]
+  }
+}
+
+# 1. VPC - Create a custom VPC with 1 public subnet and Internet Gateway
+resource "aws_vpc" "main" {
+  cidr_block           = "10.0.0.0/16"
+  enable_dns_hostnames = true
+  enable_dns_support   = true
+
+  tags = {
+    Name = "main-vpc"
+  }
+}
+
+resource "aws_internet_gateway" "main" {
+  vpc_id = aws_vpc.main.id
+
+  tags = {
+    Name = "main-igw"
+  }
+}
+
+resource "aws_subnet" "public" {
+  vpc_id                  = aws_vpc.main.id
+  cidr_block              = "10.0.1.0/24"
+  availability_zone       = data.aws_availability_zones.available.names[0]
+  map_public_ip_on_launch = true
+
+  tags = {
+    Name = "public-subnet"
+  }
+}
+
+resource "aws_subnet" "private" {
+  vpc_id            = aws_vpc.main.id
+  cidr_block        = "10.0.2.0/24"
+  availability_zone = data.aws_availability_zones.available.names[1]
+
+  tags = {
+    Name = "private-subnet"
+  }
+}
+
+resource "aws_route_table" "public" {
+  vpc_id = aws_vpc.main.id
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.main.id
+  }
+
+  tags = {
+    Name = "public-route-table"
+  }
+}
+
+resource "aws_route_table_association" "public" {
+  subnet_id      = aws_subnet.public.id
+  route_table_id = aws_route_table.public.id
+}
+
+# 2. Security Groups
+resource "aws_security_group" "web" {
+  name        = "web-sg"
+  description = "Security group for web servers"
+  vpc_id      = aws_vpc.main.id
+
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "web-sg"
+  }
+}
+
+resource "aws_security_group" "db" {
+  name        = "db-sg"
+  description = "Security group for database"
+  vpc_id      = aws_vpc.main.id
+
+  ingress {
+    from_port       = 3306
+    to_port         = 3306
+    protocol        = "tcp"
+    security_groups = [aws_security_group.web.id]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "db-sg"
+  }
+}
+
+# 3. EC2 Instance
+resource "aws_instance" "web" {
+  ami                    = data.aws_ami.amazon_linux.id
+  instance_type          = "t2.micro"
+  key_name               = var.key_name
+  vpc_security_group_ids = [aws_security_group.web.id]
+  subnet_id              = aws_subnet.public.id
+
+  user_data = <<-EOF
+              #!/bin/bash
+              yum update -y
+              yum install -y httpd
+              systemctl start httpd
+              systemctl enable httpd
+              echo "<h1>Hello from Terraform!</h1>" > /var/www/html/index.html
+              EOF
+
+  tags = {
+    Name = "web-server"
+  }
+}
+
+# 4. S3 Bucket
+resource "aws_s3_bucket" "main" {
+  bucket = "my-terraform-bucket-  "
+
+  tags = {
+    Name = "terraform-bucket"
+  }
+}
+
+resource "random_id" "bucket_suffix" {
+  byte_length = 4
+}
+
+resource "aws_s3_bucket_public_access_block" "main" {
+  bucket = aws_s3_bucket.main.id
+
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
+}
+
+# 5. EBS Volume
+resource "aws_ebs_volume" "main" {
+  availability_zone = aws_instance.web.availability_zone
+  size              = 20
+  type              = "gp2"
+
+  tags = {
+    Name = "web-server-volume"
+  }
+}
+
+resource "aws_volume_attachment" "main" {
+  device_name = "/dev/sdf"
+  volume_id   = aws_ebs_volume.main.id
+  instance_id = aws_instance.web.id
+}
+
+# 6. RDS Instance
+resource "aws_db_subnet_group" "main" {
+  name       = "main-db-subnet-group"
+  subnet_ids = [aws_subnet.private.id, aws_subnet.public.id]
+
+  tags = {
+    Name = "main-db-subnet-group"
+  }
+}
+
+resource "aws_db_instance" "main" {
+  identifier           = "main-db"
+  engine               = "mysql"
+  engine_version       = "8.0"
+  instance_class       = "db.t3.micro"
+  allocated_storage    = 20
+  storage_type         = "gp2"
+  storage_encrypted    = true
+  username             = "admin"
+  password             = var.db_password != "" ? var.db_password : random_password.db_password.result
+  skip_final_snapshot  = true
+  db_subnet_group_name = aws_db_subnet_group.main.name
+  vpc_security_group_ids = [aws_security_group.db.id]
+
+  tags = {
+    Name = "main-db"
+  }
+}
+
+# 7. Lambda Function
+resource "aws_lambda_function" "main" {
+  filename         = "lambda_function.zip"
+  function_name    = "hello-world"
+  role            = aws_iam_role.lambda_role.arn
+  handler         = "index.handler"
+  runtime         = "nodejs18.x"
+
+  tags = {
+    Name = "hello-world-lambda"
+  }
+}
+
+resource "aws_iam_role" "lambda_role" {
+  name = "lambda_execution_role"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = "sts:AssumeRole"
+        Effect = "Allow"
+        Principal = {
+          Service = "lambda.amazonaws.com"
+        }
+      }
+    ]
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "lambda_policy" {
+  role       = aws_iam_role.lambda_role.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+}
+
+# 8. CloudWatch Log Group
+resource "aws_cloudwatch_log_group" "main" {
+  name              = "/aws/lambda/\${aws_lambda_function.main.function_name}"
+  retention_in_days = 14
+
+  tags = {
+    Name = "lambda-log-group"
+  }
+}
+
+# 9. CloudTrail
+resource "aws_cloudtrail" "main" {
+  name           = "main-trail"
+  s3_bucket_name = aws_s3_bucket.main.bucket
+
+  event_selector {
+    read_write_type                 = "All"
+    include_management_events       = true
+    data_resource {
+      type   = "AWS::S3::Object"
+      values = ["\${aws_s3_bucket.main.arn}/*"]
+    }
+  }
+
+  tags = {
+    Name = "main-cloudtrail"
+  }
+}
+
+# 10. CloudFormation Stack
+resource "aws_cloudformation_stack" "main" {
+  name = "sample-stack"
+
+  template_body = jsonencode({
+    AWSTemplateFormatVersion = "2010-09-09"
+    Description              = "Sample CloudFormation stack"
+    Resources = {
+      SampleBucket = {
+        Type = "AWS::S3::Bucket"
+        Properties = {
+          BucketName = "sample-bucket-\${random_id.bucket_suffix.hex}"
+        }
+      }
+    }
+  })
+
+  tags = {
+    Name = "sample-stack"
+  }
+}
+
+# 11. Athena Workgroup
+resource "aws_athena_workgroup" "main" {
+  name = "main-workgroup"
+
+  configuration {
+    enforce_workgroup_configuration    = true
+    publish_cloudwatch_metrics_enabled = true
+
+    result_configuration {
+      output_location = "s3://\${aws_s3_bucket.main.bucket}/athena-results/"
+    }
+  }
+
+  tags = {
+    Name = "main-athena-workgroup"
+  }
+}
+
+# Outputs
+output "vpc_id" {
+  description = "ID of the VPC"
+  value       = aws_vpc.main.id
+}
+
+output "public_subnet_id" {
+  description = "ID of the public subnet"
+  value       = aws_subnet.public.id
+}
+
+output "web_server_public_ip" {
+  description = "Public IP of the web server"
+  value       = aws_instance.web.public_ip
+}
+
+output "s3_bucket_name" {
+  description = "Name of the S3 bucket"
+  value       = aws_s3_bucket.main.bucket
+}
+
+output "rds_endpoint" {
+  description = "RDS instance endpoint"
+  value       = aws_db_instance.main.endpoint
+}
+
+output "lambda_function_arn" {
+  description = "ARN of the Lambda function"
+  value       = aws_lambda_function.main.arn
+}`}</CodeBlock>
+                    </div>
+
+                    <div className={`p-4 rounded-lg ${isDarkMode ? 'bg-blue-900/20 text-blue-200' : 'bg-blue-50 text-blue-900'}`}>
+                      <h3 className="font-semibold mb-2 text-sm md:text-base">Complete terraform.tfvars File</h3>
+                      <p className="text-xs md:text-sm">Create this file in the same directory as your <code className="bg-gray-200 px-2 py-1 rounded text-xs">main.tf</code> and replace the placeholder values with your actual AWS credentials.</p>
+                      <CodeBlock title="terraform.tfvars">{`# AWS Configuration
+aws_region = "us-east-1"
+
+# AWS Credentials (replace with your actual values)
+aws_access_key = "your_access_key_here"
+aws_secret_key = "your_secret_key_here"
+
+# Key pair name for EC2 instances
+key_name = "kp1"
+
+# Database password (optional - will generate random if not provided)
+db_password = ""`}</CodeBlock>
+                    </div>
+                  </div>
+                </StepCard>
+              </TabsContent>
+
+              {/* Task 3 Commands */}
+              <TabsContent value="task3-commands">
+                <StepCard title="Execute Terraform Commands for Task 3" icon={Play}>
+                  <div className="space-y-4 md:space-y-6">
+                    <div className={`p-4 rounded-lg ${isDarkMode ? 'bg-blue-900/20 text-blue-200' : 'bg-blue-50 text-blue-900'}`}>
+                      <h3 className="font-semibold mb-2 text-sm md:text-base">Execute these commands in order:</h3>
+                      <p className="text-xs md:text-sm">Run these commands in your terminal from the directory containing your <code className="bg-gray-200 px-2 py-1 rounded text-xs">main.tf</code> file for Task 3.</p>
+                    </div>
+                    <div className="space-y-4">
+                      <div className={`p-4 rounded-lg border-l-4 border-blue-500 ${isDarkMode ? 'bg-gray-800' : 'bg-white'}`}>
+                        <h4 className={`font-semibold mb-2 text-sm md:text-base ${isDarkMode ? 'text-blue-400' : 'text-blue-900'}`}>1. Initialize Terraform</h4>
+                        <CodeBlock>terraform init</CodeBlock>
+                        <p className={`text-xs md:text-sm mt-2 ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>Downloads the AWS provider and initializes the working directory.</p>
+                        <div className="mt-4">
+                          <ImageCard src="/images/terraform-init.png" alt="Terraform Init Command for Task 3" title="terraform init - Task 3 Initialization" />
+                        </div>
+                      </div>
+                      <div className={`p-4 rounded-lg border-l-4 border-green-500 ${isDarkMode ? 'bg-gray-800' : 'bg-white'}`}>
+                        <h4 className={`font-semibold mb-2 text-sm md:text-base ${isDarkMode ? 'text-green-400' : 'text-green-900'}`}>2. Validate Configuration</h4>
+                        <CodeBlock>terraform validate</CodeBlock>
+                        <p className={`text-xs md:text-sm mt-2 ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>Checks if your configuration is syntactically valid.</p>
+                        <div className="mt-4">
+                          <ImageCard src="/images/terraform-validate.png" alt="Terraform Validate Command for Task 3" title="terraform validate - Task 3 Configuration Valid" />
+                        </div>
+                      </div>
+                      <div className={`p-4 rounded-lg border-l-4 border-yellow-500 ${isDarkMode ? 'bg-gray-800' : 'bg-white'}`}>
+                        <h4 className={`font-semibold mb-2 text-sm md:text-base ${isDarkMode ? 'text-yellow-400' : 'text-yellow-900'}`}>3. Plan Infrastructure</h4>
+                        <CodeBlock>terraform plan</CodeBlock>
+                        <p className={`text-xs md:text-sm mt-2 ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>Shows what changes Terraform will make without actually applying them.</p>
+                        <div className="mt-4 space-y-4">
+                          <ImageCard src="/images/terraform-plan-part1.png" alt="Terraform Plan Command for Task 3 - Part 1" title="terraform plan - Task 3 Execution Plan (Part 1)" />
+                          <ImageCard src="/images/terraform-plan-part2.png" alt="Terraform Plan Command for Task 3 - Part 2" title="terraform plan - Task 3 Execution Plan (Part 2)" />
+                        </div>
+                      </div>
+                      <div className={`p-4 rounded-lg border-l-4 border-red-500 ${isDarkMode ? 'bg-gray-800' : 'bg-white'}`}>
+                        <h4 className={`font-semibold mb-2 text-sm md:text-base ${isDarkMode ? 'text-red-400' : 'text-red-900'}`}>4. Apply Configuration</h4>
+                        <CodeBlock>terraform apply</CodeBlock>
+                        <p className={`text-xs md:text-sm mt-2 ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>Creates the actual AWS resources. Type "yes" when prompted.</p>
+                        <div className="mt-4">
+                          <ImageCard src="/images/terraform-apply.png" alt="Terraform Apply Command for Task 3" title="terraform apply - Task 3 Resource Creation" />
+                        </div>
+                      </div>
+                      <div className={`p-4 rounded-lg border-l-4 border-gray-500 ${isDarkMode ? 'bg-gray-800' : 'bg-white'}`}>
+                        <h4 className={`font-semibold mb-2 text-sm md:text-base ${isDarkMode ? 'text-gray-400' : 'text-gray-900'}`}>5. Destroy Infrastructure</h4>
+                        <CodeBlock>terraform destroy</CodeBlock>
+                        <p className={`text-xs md:text-sm mt-2 ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>Removes all AWS resources created by this configuration.</p>
+                        <div className="mt-4 space-y-4">
+                          <ImageCard src="/images/terraform-destroy-part1.png" alt="Terraform Destroy Command for Task 3 - Part 1" title="terraform destroy - Task 3 Destroy (Part 1)" />
+                          <ImageCard src="/images/terraform-destroy-part2.png" alt="Terraform Destroy Command for Task 3 - Part 2" title="terraform destroy - Task 3 Destroy (Part 2)" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </StepCard>
+              </TabsContent>
+
+              {/* Task 3 Results & Verification */}
+              <TabsContent value="task3-results">
+                <StepCard title="Task 3 Results & Verification" icon={CheckCircle}>
+                  <div className="space-y-4">
+                    <div className={`p-4 rounded-lg ${isDarkMode ? 'bg-green-900/20 text-green-200' : 'bg-green-50 text-green-900'}`}>
+                      <h3 className="font-semibold mb-2 text-sm md:text-base">✅ Task 3 Completed Successfully!</h3>
+                      <p className="text-xs md:text-sm">Your AWS infrastructure has been created. Below are verification screenshots for each resource.</p>
+                    </div>
+                    <div className="space-y-4">
+                      <ImageCard src="/images/aws-ec2-instance.png" alt="EC2 Instance List - Task 3" title="AWS Console - EC2 Instances Dashboard" />
+                      <ImageCard src="/images/aws-ec2-instance-details.png" alt="EC2 Instance Details - Task 3" title="EC2 Instance Summary - Security Configuration" />
+                      <ImageCard src="/images/aws-ec2-instance-details-task2.png" alt="EC2 Instance Details - Task 3 (Extra)" title="EC2 Instance Details - Extra" />
+                      <ImageCard src="/images/aws-ec2-instances-task2.png" alt="EC2 Instances List - Task 3 (Extra)" title="EC2 Instances List - Extra" />
+                      <ImageCard src="/images/environment-variables.png" alt="Environment Variables - Task 3" title="Environment Variables" />
+                      <ImageCard src="/images/system-properties.png" alt="System Properties - Task 3" title="System Properties" />
+                    </div>
+                    <div className={`border-l-4 border-blue-500 p-4 ${isDarkMode ? 'bg-blue-900/20 text-blue-200' : 'bg-blue-50 text-blue-900'}`}>
+                      <h3 className="font-semibold mb-2 text-sm md:text-base">Resource Checklist:</h3>
+                      <ul className="text-xs md:text-sm space-y-1">
+                        <li>• ✅ VPC, subnets, and internet gateway created</li>
+                        <li>• ✅ EC2 instance running with EBS volume</li>
+                        <li>• ✅ S3 buckets (private, CloudTrail logs) exist</li>
+                        <li>• ✅ Lambda function deployed</li>
+                        <li>• ✅ RDS MySQL database available</li>
+                        <li>• ✅ Athena database and table created</li>
+                        <li>• ✅ CloudWatch alarm set up</li>
+                        <li>• ✅ CloudTrail logging enabled</li>
+                        <li>• ✅ CloudFormation stack deployed</li>
+                      </ul>
+                    </div>
+                  </div>
+                </StepCard>
+              </TabsContent>
+
+              {/* Task 3 Cleanup */}
+              <TabsContent value="task3-cleanup">
+                <StepCard title="Cleanup Resources for Task 3" icon={Trash2}>
+                  <div className="space-y-4">
+                    <div className={`p-4 rounded-lg ${isDarkMode ? 'bg-red-900/20 text-red-200' : 'bg-red-50 text-red-900'}`}>
+                      <h3 className="font-semibold mb-2 text-sm md:text-base">Important: Clean up to avoid charges</h3>
+                      <p className="text-xs md:text-sm">Always destroy resources when you're done experimenting to avoid unexpected AWS charges.</p>
+                    </div>
+                    <p className={`text-base md:text-lg ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>To remove all resources created in Task 3, run <CodeBlock>terraform destroy</CodeBlock> in your Task 3 directory. Confirm the destroy action when prompted.</p>
+                  </div>
+                </StepCard>
+              </TabsContent>
+            </>
+          )}
+
+          {/* Task 4 Content */}
+          {activeTask === "task4" && (
+            <>
+              {/* Task 4 Overview */}
+              <TabsContent value="task4-overview">
+                <StepCard title="Task 4: S3 Static Website Hosting" icon={Cloud}>
+                  <div className="space-y-4">
+                    <p className={`text-base md:text-lg ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>In this task, you'll use Terraform to provision an S3 bucket for static website hosting, configure public access, upload HTML files, and verify your live website. Each step is explained for beginners, with screenshots and code examples.</p>
+                    <ImageCard src="/images/bytewave-s3-bucket-list.png" alt="S3 Bucket List" title="S3 Bucket List - Task 4" />
+                  </div>
+                </StepCard>
+              </TabsContent>
+              {/* Task 4 Code */}
+              <TabsContent value="task4-code">
+                <StepCard title="Complete main.tf & terraform.tfvars" icon={Code}>
+                  <div className="space-y-6">
+                    <div className={`p-4 rounded-lg ${isDarkMode ? 'bg-green-900/20 text-green-200' : 'bg-green-50 text-green-900'}`}> <h3 className="font-semibold mb-2 text-sm md:text-base">main.tf</h3>
+                      <CodeBlock title="main.tf">{`# S3 Static Website Hosting for ByteWave Solutions
+# This Terraform configuration creates an S3 bucket for static website hosting
+
+terraform {
+  required_version = ">= 1.0"
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
+    }
+  }
+}
+
+# Provider Configuration
+provider "aws" {
+  region     = var.aws_region
+  access_key = var.aws_access_key
+  secret_key = var.aws_secret_key
+}
+
+# Variables
+variable "aws_region" {
+  description = "AWS region"
+  type        = string
+  default     = "us-east-1"
+}
+
+variable "aws_access_key" {
+  description = "AWS access key"
+  type        = string
+  sensitive   = true
+}
+
+variable "aws_secret_key" {
+  description = "AWS secret key"
+  type        = string
+  sensitive   = true
+}
+
+variable "your_initials" {
+  description = "Your initials for bucket naming"
+  type        = string
+  default     = "ak"  # Change this to your initials
+}
+
+# Data source to get current AWS account ID
+data "aws_caller_identity" "current" {}
+
+# 1. Create S3 bucket with your initials
+resource "aws_s3_bucket" "website" {
+  bucket = "bytewave-website-\${var.your_initials}"
+
+  tags = {
+    Name        = "ByteWave Website"
+    Environment = "Production"
+    Purpose     = "Static Website Hosting"
+  }
+}
+
+# 2. Enable static website hosting
+resource "aws_s3_bucket_website_configuration" "website" {
+  bucket = aws_s3_bucket.website.id
+
+  index_document {
+    suffix = "index.html"
+  }
+
+  error_document {
+    key = "error.html"
+  }
+}
+
+# 3. Block all public access settings (initially)
+resource "aws_s3_bucket_public_access_block" "website" {
+  bucket = aws_s3_bucket.website.id
+
+  block_public_acls       = false
+  block_public_policy     = false
+  ignore_public_acls      = false
+  restrict_public_buckets = false
+}
+
+# 4. Bucket policy to allow public read access to index.html
+resource "aws_s3_bucket_policy" "website" {
+  bucket = aws_s3_bucket.website.id
+  depends_on = [aws_s3_bucket_public_access_block.website]
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Sid       = "PublicReadGetObject"
+        Effect    = "Allow"
+        Principal = "*"
+        Action    = "s3:GetObject"
+        Resource  = "\${aws_s3_bucket.website.arn}/*"
+      }
+    ]
+  })
+}
+
+# Optional: Upload a sample index.html file using Terraform
+resource "aws_s3_object" "index" {
+  bucket       = aws_s3_bucket.website.id
+  key          = "index.html"
+  content_type = "text/html"
+  content = <<EOF
+<!DOCTYPE html>... (truncated for brevity) ...</html>
+EOF
+  tags = {
+    Name = "Website Index"
+  }
+}
+
+# Optional: Upload an error page
+resource "aws_s3_object" "error" {
+  bucket       = aws_s3_bucket.website.id
+  key          = "error.html"
+  content_type = "text/html"
+  content = <<EOF
+<!DOCTYPE html>... (truncated for brevity) ...</html>
+EOF
+  tags = {
+    Name = "Website Error Page"
+  }
+}
+
+# Outputs
+output "website_endpoint" {
+  description = "Static website endpoint URL"
+  value       = "http://\${aws_s3_bucket_website_configuration.website.website_endpoint}"
+}
+
+output "bucket_name" {
+  description = "Name of the S3 bucket"
+  value       = aws_s3_bucket.website.id
+}
+
+output "bucket_arn" {
+  description = "ARN of the S3 bucket"
+  value       = aws_s3_bucket.website.arn
+}
+
+output "website_domain" {
+  description = "Website domain"
+  value       = aws_s3_bucket_website_configuration.website.website_domain
+}`}</CodeBlock>
+                    </div>
+                    <div className={`p-4 rounded-lg ${isDarkMode ? 'bg-blue-900/20 text-blue-200' : 'bg-blue-50 text-blue-900'}`}> <h3 className="font-semibold mb-2 text-sm md:text-base">terraform.tfvars</h3>
+                      <CodeBlock title="terraform.tfvars">{`aws_access_key = ""
+aws_secret_key = ""
+aws_region     = "us-east-1"
+your_initials  = "sg"`}</CodeBlock>
+                    </div>
+                  </div>
+                </StepCard>
+              </TabsContent>
+              {/* Task 4 Commands */}
+              <TabsContent value="task4-commands">
+                <StepCard title="Execute Terraform Commands for Task 4" icon={Play}>
+                  <div className="space-y-4 md:space-y-6">
+                    <div className={`p-4 rounded-lg ${isDarkMode ? 'bg-blue-900/20 text-blue-200' : 'bg-blue-50 text-blue-900'}`}> <h3 className="font-semibold mb-2 text-sm md:text-base">Run these commands in your terminal:</h3>
+                      <ul className="text-xs md:text-sm space-y-1">
+                        <li><CodeBlock>terraform init</CodeBlock>Initialize the working directory.</li>
+                        <li><CodeBlock>terraform validate</CodeBlock>Validate the configuration.</li>
+                        <li><CodeBlock>terraform plan</CodeBlock>See what will be created.</li>
+                        <li><CodeBlock>terraform apply</CodeBlock>Apply the configuration and create resources.</li>
+                      </ul>
+                    </div>
+                    <ImageCard src="/images/terraform-init.png" alt="Terraform Init Output" title="terraform init - Task 4" />
+                    <ImageCard src="/images/terraform-validate.png" alt="Terraform Validate Output" title="terraform validate - Task 4" />
+                    <ImageCard src="/images/terraform-plan-part1.png" alt="Terraform Plan Output" title="terraform plan - Task 4 (Part 1)" />
+                    <ImageCard src="/images/terraform-plan-part2.png" alt="Terraform Plan Output" title="terraform plan - Task 4 (Part 2)" />
+                    <ImageCard src="/images/terraform-apply.png" alt="Terraform Apply Output" title="terraform apply - Task 4" />
+                  </div>
+                </StepCard>
+              </TabsContent>
+              {/* Task 4 Verification */}
+              <TabsContent value="task4-verification">
+                <StepCard title="Step-by-Step Verification Guide" icon={CheckCircle}>
+                  <div className="space-y-6">
+                    <div className={`p-4 rounded-lg ${isDarkMode ? 'bg-purple-900/20 text-purple-200' : 'bg-purple-50 text-purple-900'}`}> <h3 className="font-semibold mb-2 text-sm md:text-base">Step 1: Verify S3 Bucket Creation</h3>
+                      <p className="text-xs md:text-sm">Check the S3 bucket list for <code>bytewave-website-[your_initials]</code>.</p>
+                      <ImageCard src="/images/bytewave-s3-bucket-list.png" alt="S3 Bucket List" title="S3 Bucket List - Task 4" />
+                    </div>
+                    <div className={`p-4 rounded-lg ${isDarkMode ? 'bg-blue-900/20 text-blue-200' : 'bg-blue-50 text-blue-900'}`}> <h3 className="font-semibold mb-2 text-sm md:text-base">Step 2: Verify Static Website Hosting</h3>
+                      <p className="text-xs md:text-sm">Check the Properties tab for static website hosting status and endpoint.</p>
+                      <ImageCard src="/images/bytewave-s3-static-hosting.png" alt="S3 Static Website Hosting" title="Static Website Hosting - Task 4" />
+                    </div>
+                    <div className={`p-4 rounded-lg ${isDarkMode ? 'bg-orange-900/20 text-orange-200' : 'bg-orange-50 text-orange-900'}`}> <h3 className="font-semibold mb-2 text-sm md:text-base">Step 3: Verify Public Access Block Settings</h3>
+                      <p className="text-xs md:text-sm">Check the Permissions tab for public access block settings.</p>
+                      <ImageCard src="/images/bytewave-s3-public-access.png" alt="S3 Public Access Block" title="Public Access Block - Task 4" />
+                    </div>
+                    <div className={`p-4 rounded-lg ${isDarkMode ? 'bg-pink-900/20 text-pink-200' : 'bg-pink-50 text-pink-900'}`}> <h3 className="font-semibold mb-2 text-sm md:text-base">Step 4: Verify Bucket Policy</h3>
+                      <p className="text-xs md:text-sm">Check the Permissions tab for the bucket policy JSON.</p>
+                      <ImageCard src="/images/bytewave-s3-bucket-policy.png" alt="S3 Bucket Policy" title="Bucket Policy - Task 4" />
+                    </div>
+                    <div className={`p-4 rounded-lg ${isDarkMode ? 'bg-green-900/20 text-green-200' : 'bg-green-50 text-green-900'}`}> <h3 className="font-semibold mb-2 text-sm md:text-base">Step 5: Verify HTML File Upload</h3>
+                      <p className="text-xs md:text-sm">Check the Objects tab for <code>index.html</code> and <code>error.html</code>.</p>
+                      <ImageCard src="/images/bytewave-s3-objects.png" alt="S3 Objects List" title="Objects List - Task 4" />
+                    </div>
+                    <div className={`p-4 rounded-lg ${isDarkMode ? 'bg-blue-900/20 text-blue-200' : 'bg-blue-50 text-blue-900'}`}> <h3 className="font-semibold mb-2 text-sm md:text-base">Step 6: Verify Terraform Output</h3>
+                      <p className="text-xs md:text-sm">Run <code>terraform output</code> and check the website endpoint URL.</p>
+                      <ImageCard src="/images/bytewave-terraform-output.png" alt="Terraform Output" title="Terraform Output - Task 4" />
+                    </div>
+                    <div className={`p-4 rounded-lg ${isDarkMode ? 'bg-yellow-900/20 text-yellow-200' : 'bg-yellow-50 text-yellow-900'}`}> <h3 className="font-semibold mb-2 text-sm md:text-base">Step 7: Verify Live Website</h3>
+                      <p className="text-xs md:text-sm">Open the website endpoint in your browser and test the error page.</p>
+                      <ImageCard src="/images/bytewave-s3-website.png" alt="Live Website" title="Live Website - Task 4" />
+                      <ImageCard src="/images/bytewave-s3-error-page.png" alt="Error Page" title="Error Page - Task 4" />
+                    </div>
+                  </div>
+                </StepCard>
+              </TabsContent>
+              {/* Task 4 Cleanup */}
+              <TabsContent value="task4-cleanup">
+                <StepCard title="Cleanup Resources for Task 4" icon={Trash2}>
+                  <div className="space-y-4">
+                    <div className={`p-4 rounded-lg ${isDarkMode ? 'bg-red-900/20 text-red-200' : 'bg-red-50 text-red-900'}`}> <h3 className="font-semibold mb-2 text-sm md:text-base">Important: Clean up to avoid charges</h3>
+                      <p className="text-xs md:text-sm">Always destroy resources when you're done experimenting to avoid unexpected AWS charges.</p>
+                    </div>
+                    <p className={`text-base md:text-lg ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>To remove all resources created in Task 4, run <CodeBlock>terraform destroy</CodeBlock> in your Task 4 directory. Confirm the destroy action when prompted.</p>
                   </div>
                 </StepCard>
               </TabsContent>
